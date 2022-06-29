@@ -1,4 +1,4 @@
-set(PROJECT_NAME nv_pattern_test)
+set(PROJECT_NAME pattern_example)
 set(CURRENT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
 project(${PROJECT_NAME})
