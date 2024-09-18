@@ -1,24 +1,33 @@
 cmake_minimum_required(VERSION 3.30)
 
+set(CMAKE_CXX_STANDARD 17)
+set(TARGET_NAME common-lib)
+project(${TARGET_NAME})
+
+set(INCLUDES ${CMAKE_CURRENT_LIST_DIR}/include)
+set(DEPENDENCIES)
+set(LINKS ${CMAKE_CURRENT_BINARY_DIR}
+          ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp)
+
 if (WIN32)
     add_definitions(-DWINDOWS)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDebug")
 elseif (UNIX)
     add_definitions(-DLINUX)
 endif()
 
-set(TARGET_NAME common-lib)
-
-project(TARGET_NAME)
-
-set(CMAKE_CXX_STANDARD 17)
-set(INCLUDES ${CMAKE_CURRENT_LIST_DIR}/include)
-file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp)
-
-add_library(${TARGET_NAME} ${SOURCES})
+add_library(${TARGET_NAME} STATIC ${SOURCES})
 
 target_include_directories(${TARGET_NAME} 
-                           PRIVATE
-                           ${INCLUDES}
-)
+                           PRIVATE ${INCLUDES})
 
-# add_subdirectory(test)
+target_link_directories(${TARGET_NAME}
+                        PRIVATE ${LINKS})
+
+target_link_libraries(${TARGET_NAME}
+                      PRIVATE ${DEPENDENCIES})
+
+if(DEFINED GTEST_BASE_DIR)
+    add_subdirectory(test)
+endif()

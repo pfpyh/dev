@@ -26,6 +26,7 @@ SOFTWARE.
 
 #include <thread>
 #include <functional>
+#include <iostream>
 
 namespace common::thread
 {
@@ -36,6 +37,11 @@ class ThreadDetail final : public Thread
 private :
     std::thread _thread;
     std::promise<void> _promise;
+#if defined(WIN32)
+    Priority _priority = Policies::DEFAULT;
+#elif defined(LINUX)
+    Priority _priority;
+#endif
 
 public :
     ~ThreadDetail() noexcept final = default;
@@ -46,6 +52,7 @@ public :
         auto future = _promise.get_future();
         _thread = std::thread([this, work = std::move(func)]() mutable 
         {
+            set_priority(_priority);
             work();
             _promise.set_value();
         });
@@ -63,7 +70,38 @@ public :
         {
             _thread.join();
         }
-    }    
+    }
+
+    auto set_priority(const Priority& priority) noexcept -> bool override
+    {
+        if(_thread.joinable() == false) // Thread is not started
+        {
+            _priority = priority;
+            std::cout << "Thread is not started." << std::endl;
+            return true;
+        }
+#if defined(WIN32)
+        else if(priority != Policies::DEFAULT)
+        {
+            HANDLE handle = _thread.native_handle();
+            if(false == SetThreadPriority(handle, priority))
+            {
+                std::cerr << "SetThreadPriority Error code: " << GetLastError() << std::endl;
+                return false;
+            }
+            _priority = priority;
+            return true;
+        }
+#elif defined(LINUX)
+
+#endif
+        return true;
+    }
+
+    auto get_priority() noexcept -> Priority override
+    {
+        return _priority;
+    }
 };
 } // namespace detail
 
@@ -72,5 +110,11 @@ auto Thread::__create() noexcept -> std::shared_ptr<Thread>
     return std::shared_ptr<Thread>(new detail::ThreadDetail, [](detail::ThreadDetail* obj){
         obj->join();
     });
+}
+
+auto Thread::task(std::function<void()>&& func) noexcept -> std::future<void>
+{
+    auto t = __create();
+    return t->start(std::move(func));
 }
 } // namespace common::thread
