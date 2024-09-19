@@ -23,10 +23,10 @@ SOFTWARE.
 */
 
 #include "common-lib/thread/Thread.hpp"
+#include "common-lib/logging/Logger.hpp"
 
 #include <thread>
 #include <functional>
-#include <iostream>
 
 namespace common::thread
 {
@@ -40,7 +40,7 @@ private :
 #if defined(WIN32)
     Priority _priority = Policies::DEFAULT;
 #elif defined(LINUX)
-    Priority _priority;
+    Priority _priority = {Policies::DEFAULT, Level::DEFAULT};
 #endif
 
 public :
@@ -77,7 +77,6 @@ public :
         if(_thread.joinable() == false) // Thread is not started
         {
             _priority = priority;
-            std::cout << "Thread is not started." << std::endl;
             return true;
         }
 #if defined(WIN32)
@@ -86,14 +85,25 @@ public :
             HANDLE handle = _thread.native_handle();
             if(false == SetThreadPriority(handle, priority))
             {
-                std::cerr << "SetThreadPriority Error code: " << GetLastError() << std::endl;
+                _ERROR_("set_priority = (%d)", GetLastError());
                 return false;
             }
             _priority = priority;
-            return true;
         }
 #elif defined(LINUX)
-
+        else if(std::get<0>(priority) != Policies::DEFAULT ||
+                std::get<1>(priority) != Level::DEFAULT)
+        {
+            pthread_t handle = _thread.native_handle();
+            struct sched_param param;
+            param.sched_priority = std::get<1>(priority);
+            if(false == sched_setscheduler(handle, std::get<0>(priority), &param))
+            {
+                _ERROR_("set_priority = (%d)", errno);
+                return false;
+            }
+            _priority = priority;            
+        }
 #endif
         return true;
     }

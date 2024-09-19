@@ -70,6 +70,7 @@ public :
 #elif defined(LINUX)    
     class Policies
     {
+    public :
         enum type : uint32_t
         {
             DEFAULT = SCHED_OTHER,
@@ -85,10 +86,10 @@ public :
     {
     public :
         using type = uint8_t;
-        constexpr type DEFAULT = 0;
+        static constexpr type DEFAULT = 0;
     };
 
-    using Priority = std::pair<Policies::type, Level::type>;
+    using Priority = std::tuple<Policies::type, Level::type>;
 #endif 
 
 private :

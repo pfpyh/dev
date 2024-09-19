@@ -6,8 +6,13 @@ file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp)
 set(INCLUDES ${INCLUDES}
              ${GTEST_BASE_DIR}/googletest/include)
 
-set(LINKS ${LINKS}
-          ${GTEST_BASE_DIR}/build/lib/Debug)
+if (WIN32)
+    set(LINKS ${LINKS}
+              ${GTEST_BASE_DIR}/build/lib/Debug)
+elseif (UNIX)
+    set(LINKS ${LINKS}
+              ${GTEST_BASE_DIR}/build/lib/)
+endif()
 
 set(DEPENDENCIES ${DEPENDENCIES}
                  common-lib

@@ -31,8 +31,9 @@ TEST(ThreadTest, priority)
 #if defined(WIN32)
     const Thread::Priority origin = Thread::Policies::DEFAULT;
     const Thread::Priority setting = Thread::Policies::TIME_CRITICAL;
-#elif deinfed(LINUX)
-
+#elif defined(LINUX)
+    const Thread::Priority origin = {Thread::Policies::DEFAULT, Thread::Level::DEFAULT};
+    const Thread::Priority setting = {Thread::Policies::RR, 15};
 #endif
 
     // when
