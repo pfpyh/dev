@@ -22,35 +22,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include "common-lib/exception/Exception.hpp"
+#pragma once
 
-#include <unordered_map>
+#include <exception>
+#include <string>
 
 namespace common::exception
 {
-namespace detail
+enum ExceptionType : uint8_t
 {
-std::unordered_map<Type, std::string> ExceptionStringMap = {
-    {Type::Undefined, "Undefined exception."},
-    {Type::AlreadyRunning, "Ojbect already started."},
-    {Type::SocketError, "Socket open failure."},
-    {Type::SocketServerError, "Socket server failure."},
-    {Type::SocketClientError, "Socket client failure."},
+    Undefined = 0,
+
+    // thread::Thread
+    AlreadyRunning,
+
+    // communication::Socket
+    SocketError,
+    SocketServerError,
+    SocketClientError,
 };
-} // namespace detail
 
-Exception::Exception(const Type type) noexcept
-    : _type(type) {}
-
-Exception::Exception(const Type type, const std::string& what) noexcept
-    : _type(type)
-    , _what(what) {}
-
-const char* Exception::what() const noexcept
+class Exception : public std::exception
 {
-    if(false == _what.empty()) { return _what.c_str(); }
-    auto itor = detail::ExceptionStringMap.find(_type);
-    if(itor != detail::ExceptionStringMap.end()) { return detail::ExceptionStringMap.find(_type)->second.c_str(); }
-    else { return detail::ExceptionStringMap.find(Type::Undefined)->second.c_str(); }        
-}
+private :
+    ExceptionType _type = Undefined;
+    std::string _what;
+
+public :
+    Exception(const ExceptionType type) noexcept;
+    Exception(const ExceptionType type, const std::string& what) noexcept;
+    const char* what() const noexcept override;
+};
 } // namespace common::exception

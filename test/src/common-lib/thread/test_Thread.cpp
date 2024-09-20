@@ -4,7 +4,7 @@
 
 namespace common::thread::test
 {
-TEST(ThreadTest, create)
+TEST(test_Thread, create)
 {
     // given
     bool value = false;
@@ -21,7 +21,7 @@ TEST(ThreadTest, create)
     ASSERT_TRUE(value);
 }
 
-TEST(ThreadTest, priority)
+TEST(test_Thread, priority)
 {
     // given
     std::promise<void> promise;
@@ -54,7 +54,7 @@ TEST(ThreadTest, priority)
     threadFuture.wait();
 }
 
-TEST(ThreadTest, task)
+TEST(test_Thread, task)
 {
     // given
     bool value = false;

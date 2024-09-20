@@ -112,7 +112,7 @@ public :
 
 public :
     /**
-     * @brief Creates a new thread and executes the given function asynchronously.
+     * @brief Creates a new thread and executes the given function asynchronously.r
      * 
      * This method creates a new thread and executes the given function in a separate thread.
      * 
