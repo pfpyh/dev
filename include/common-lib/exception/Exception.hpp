@@ -25,3 +25,4 @@ SOFTWARE.
 #pragma once
 
 #include "common-lib/exception/AlreadyRunning.hpp"
+#include "common-lib/exception/SocketError.hpp"

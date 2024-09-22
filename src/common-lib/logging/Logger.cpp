@@ -26,7 +26,7 @@ SOFTWARE.
 
 #include <iostream>
 
-namespace common::logging
+namespace common
 {
 auto Logger::debug(const std::string& log) -> void
 {
@@ -42,4 +42,4 @@ auto Logger::info(const std::string& log) -> void
 {
     std::cout << "[INFO] " << log << std::endl;
 }
-} // namespace common::logging
+} // namespace common

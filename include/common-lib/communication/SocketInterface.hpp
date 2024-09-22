@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common-lib/communication/Socket.hpp"
-#include "common-lib/thread/Worker.hpp"
+#include "common-lib/thread/Runnable.hpp"
 #include "common-lib/exception/Exception.hpp"
 #include "common-lib/logging/Logger.hpp"
 
@@ -10,7 +10,7 @@
 namespace common::communication
 {
 template <typename DataType>
-class Provider: public thread::SingleWorker<Provider<DataType>>
+class Provider: public thread::Runnable
 {
 private :
     std::shared_ptr<Socket> _socket = std::move(Socket::create_server());
@@ -27,7 +27,7 @@ public :
         try
         {
             _socket->prepare(address, port);
-            _future = thread::SingleWorker<Provider<DataType>>::run();
+            _future = thread::Runnable::run();
         }
         catch(const exception::Exception& e)
         {
@@ -71,7 +71,7 @@ public :
     }
 
 protected :
-    auto __work() -> void
+    auto __work() -> void override
     {
         if(_isOpen == false)
         {
@@ -105,7 +105,7 @@ protected :
 };
 
 template <typename DataType>
-class Consumer : public thread::SingleWorker<Consumer<DataType>>
+class Consumer : public thread::Runnable
 {
 private :
     std::shared_ptr<Socket> _socket = std::move(Socket::create_client());
@@ -124,7 +124,7 @@ public :
             _socket->prepare(address, port);
             _socket->open();
             _onEvent = std::move(onEvent);
-            _future = thread::SingleWorker<Consumer<DataType>>::run();
+            _future = thread::Runnable::run();
             _DEBUG_("[common-lib] Consumer::connect(%s, %d) : success", 
                     _socket->address().c_str(), _socket->port());
         }
@@ -145,7 +145,7 @@ public :
 
     auto disconeect() noexcept -> void
     {
-        thread::SingleWorker<Consumer<DataType>>::stop();
+        thread::Runnable::stop();
         _future->wait();
         _socket->close();
     }

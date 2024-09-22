@@ -33,11 +33,11 @@ SOFTWARE.
 #define VA_ARGS(...) , ##__VA_ARGS__
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
-#define _INFO_(format, ...) ::common::logging::__logger.info(format + std::string(" (%s:%d)"), ##__VA_ARGS__, __FILENAME__, __LINE__);
-#define _DEBUG_(format, ...) ::common::logging::__logger.debug(format + std::string(" (%s:%d)"), ##__VA_ARGS__, __FILENAME__, __LINE__);
-#define _ERROR_(format, ...) ::common::logging::__logger.error(format + std::string(" (%s:%d)"), ##__VA_ARGS__, __FILENAME__, __LINE__);
+#define _INFO_(format, ...) ::common::__logger.info(format + std::string(" (%s:%d)"), ##__VA_ARGS__, __FILENAME__, __LINE__);
+#define _DEBUG_(format, ...) ::common::__logger.debug(format + std::string(" (%s:%d)"), ##__VA_ARGS__, __FILENAME__, __LINE__);
+#define _ERROR_(format, ...) ::common::__logger.error(format + std::string(" (%s:%d)"), ##__VA_ARGS__, __FILENAME__, __LINE__);
 
-namespace common::logging
+namespace common
 {
 class Logger
 {
@@ -75,4 +75,4 @@ public :
 };
 
 static Logger __logger;
-} // namespace common::logging
+} // namespace common

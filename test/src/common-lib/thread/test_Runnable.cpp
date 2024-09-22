@@ -3,7 +3,7 @@
 
 #include "common-lib/thread/Runnable.hpp"
 
-namespace common::thread::test
+namespace common::test
 {
 TEST(test_Runnable, run)
 {
@@ -14,7 +14,7 @@ TEST(test_Runnable, run)
         bool value = false;
 
     private :
-        auto work() -> void override
+        auto __work() -> void override
         {
             value = true;
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
@@ -46,7 +46,7 @@ TEST(test_Runnable, already_running)
         bool value = false;
 
     private :
-        auto work() -> void override
+        auto __work() -> void override
         {
             value = true;
             std::this_thread::sleep_for(std::chrono::milliseconds(1));
@@ -76,7 +76,7 @@ TEST(test_ActiveRunnable, run)
         int32_t _last = -1;
 
     private :
-        auto work(int32_t&& data) -> void override
+        auto __work(int32_t&& data) -> void override
         {
             _last = data;
         }
@@ -109,7 +109,7 @@ TEST(test_ActiveRunnable, run_dataType)
         std::tuple<uint8_t, int8_t> _last;
 
     private :
-        auto work(std::tuple<uint8_t, int8_t>&& data) -> void override
+        auto __work(std::tuple<uint8_t, int8_t>&& data) -> void override
         {
             _last = std::move(data);
         }
@@ -146,7 +146,7 @@ TEST(test_ActiveRunnable, already_running)
         int32_t _last = -1;
 
     private :
-        auto work(int32_t&& data) -> void override
+        auto __work(int32_t&& data) -> void override
         {
             _last = data;
         }
@@ -169,5 +169,5 @@ TEST(test_ActiveRunnable, already_running)
     ASSERT_EQ(runnable._last, 5);
     ASSERT_TRUE(exceptionRised);
 }
-} // namespace common::thread::test
+} // namespace common::test
 

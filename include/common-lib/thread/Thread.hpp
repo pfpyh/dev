@@ -34,7 +34,7 @@ SOFTWARE.
 
 #endif
 
-namespace common::thread
+namespace common
 {
 /**
  * @brief Represents a thread that can be executed independently.
@@ -167,4 +167,4 @@ public :
      */
     virtual auto get_priority() noexcept -> Priority = 0;
 };
-} // namespace common::thread
+} // namespace common

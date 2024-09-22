@@ -28,7 +28,7 @@ SOFTWARE.
 #include <thread>
 #include <functional>
 
-namespace common::thread
+namespace common
 {
 namespace detail
 {
@@ -125,6 +125,8 @@ auto Thread::__create() noexcept -> std::shared_ptr<Thread>
 auto Thread::task(std::function<void()>&& func) noexcept -> std::future<void>
 {
     auto t = __create();
-    return t->start(std::move(func));
+    auto future = t->start(std::move(func));
+    t->detach();
+    return future;
 }
-} // namespace common::thread
+} // namespace common

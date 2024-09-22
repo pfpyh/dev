@@ -2,7 +2,7 @@
 
 #include "common-lib/thread/Thread.hpp"
 
-namespace common::thread::test
+namespace common::test
 {
 TEST(test_Thread, create)
 {
@@ -68,4 +68,4 @@ TEST(test_Thread, task)
     // then
     ASSERT_TRUE(value);
 }
-} // namespace common::thread::test
+} // namespace common::test

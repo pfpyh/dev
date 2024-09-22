@@ -31,7 +31,7 @@ SOFTWARE.
 
 #include <iostream>
 
-namespace common::thread
+namespace common
 {
 namespace detail
 {
@@ -48,27 +48,21 @@ public :
         , _interval(interval) {}
 
 public :
-    auto start() -> std::shared_ptr<std::future<void>> override
+    auto start() -> std::future<void> override
     {
-        if(_running) 
-        { 
-            throw exception::Exception(exception::AlreadyRunning); 
-        }
+        if(_running) throw exception::AlreadyRunningException(); 
         _running = true;
 
-        auto promise = std::make_shared<std::promise<void>>();
-        auto future = promise->get_future();
         auto thread = Thread::create();
-        thread->start([this, promise = std::move(promise)](){
-            while(true)
+        auto future = thread->start([this](){
+            while(_running)
             {
-                if(false == _running || false == _func()) { break; }
+                if(false == _func()) { break; }
                 std::this_thread::sleep_for(_interval);
             }
-            promise->set_value();
         });
         thread->detach();
-        return std::make_shared<std::future<void>>(std::move(future));
+        return future;
     }
 
     auto stop() noexcept -> void override
@@ -83,4 +77,4 @@ auto Timer::__create(Function&& func, Interval interval) noexcept -> std::shared
     return std::shared_ptr<Timer>(new detail::TimerDetail(std::forward<Function>(func), 
                                                           interval));
 }
-} // namespace common::thread
+} // namespace common
