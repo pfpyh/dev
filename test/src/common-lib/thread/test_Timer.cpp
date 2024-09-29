@@ -3,6 +3,8 @@
 #include "common-lib/thread/Timer.hpp"
 #include "common-lib/logging/Logger.hpp"
 
+#include <thread>
+
 namespace common::test
 {
 TEST(test_Timer, start)
@@ -40,5 +42,33 @@ TEST(test_Timer, stop)
 
     // then
     ASSERT_NE(count, 255);
+}
+
+TEST(test_Timer, async_start)
+{
+
+    // given
+    std::atomic<bool> isRunning = true;
+    bool result = false;
+    std::shared_ptr<std::future<void>> future;
+    {
+        future = std::make_shared<std::future<void>>(Timer::async([&isRunning, &result]() -> bool{
+            if(!isRunning.load()) 
+            {
+                result = true;
+                return false;
+            }
+            return true;
+        }, std::chrono::milliseconds(10)));
+    }
+
+    // when
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    isRunning.exchange(false);
+    future->wait();
+
+    // then
+    ASSERT_TRUE(result);
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 }
 } // namespace common::test

@@ -45,16 +45,16 @@ namespace common
  * @note A derived class must implement the pure virtual functions start() and stop() to execute a task.
  */
 class Timer : public NonCopyable, 
-              public Factory<Timer, std::function<bool()>, std::chrono::microseconds>
+              public UniqueFactory<Timer, std::function<bool()>, std::chrono::microseconds>
 {
-    friend class Factory<Timer, std::function<bool()>, std::chrono::microseconds>;
+    friend class UniqueFactory<Timer, std::function<bool()>, std::chrono::microseconds>;
 
 public :
     using Function = std::function<bool()>;
     using Interval = std::chrono::microseconds;
 
-protected :
-    bool _running = false;
+public :
+    ~Timer() noexcept = default;
 
 private :
     /**
@@ -65,7 +65,10 @@ private :
      *
      * @return A new timer that can execute the given function at the specified interval.
      */
-    static auto __create(Function&& func, Interval interval) noexcept -> std::shared_ptr<Timer>;
+    static auto __create(Function&& func, Interval interval) noexcept -> std::unique_ptr<Timer>;
+
+public :
+    static auto async(Function&& func, Interval interval) noexcept -> std::future<void>;
 
 public :
     /**
@@ -86,6 +89,6 @@ public :
      *
      * @return true if the timer is running, false otherwise.
      */
-    inline auto running() noexcept -> bool { return _running; }
+    virtual auto running() noexcept -> bool = 0;
 };
 } // namespace common

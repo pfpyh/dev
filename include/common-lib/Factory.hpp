@@ -58,4 +58,20 @@ protected :
 public :
     virtual ~Factory() noexcept = default;
 };
+
+template <typename Derived, typename... Args>
+class UniqueFactory
+{
+public :
+    static auto create(Args&&... args) noexcept -> std::unique_ptr<Derived>
+    {
+        return Derived::__create(std::forward<Args>(args)...);
+    }
+
+protected :
+    UniqueFactory() noexcept = default;
+
+public :
+    virtual ~UniqueFactory() noexcept = default;
+};
 } // namespace common

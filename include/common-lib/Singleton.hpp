@@ -36,8 +36,10 @@ namespace common
  * @tparam T The type of the Singleton instance.
  */
 template<typename Derived>
-class Singleton : private NonCopyable
+class Singleton : public NonCopyable
 {
+    friend Derived;
+    
 public :
     /**
      * @brief Gets the Singleton instance.
