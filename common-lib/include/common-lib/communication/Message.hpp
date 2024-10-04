@@ -1,5 +1,7 @@
 #pragma once
 
+#if defined(LINUX)
+
 #include "common-lib/NonCopyable.hpp"
 #include "common-lib/Factory.hpp"
 
@@ -83,3 +85,5 @@ private :
     }    
 };
 } // namespace common
+
+#endif

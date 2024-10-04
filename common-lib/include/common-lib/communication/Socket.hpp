@@ -19,9 +19,9 @@ public :
     };
 };
 
-class Socket : public NonCopyable, public Factory<Socket, SocketType::type>
+class Socket : public NonCopyable, public Factory<Socket>
 {
-    friend class Factory<Socket, bool>;
+    friend class Factory<Socket>;
     
 public :
     virtual ~Socket() = default;
