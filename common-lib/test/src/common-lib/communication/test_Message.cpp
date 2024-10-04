@@ -1,3 +1,5 @@
+#if defined(LINUX)
+
 #include <gtest/gtest.h>
 
 #include "common-lib/communication/Message.hpp"
@@ -14,3 +16,5 @@ TEST(test_Message, create)
     // then
 }
 } // namespace common::test
+
+#endif

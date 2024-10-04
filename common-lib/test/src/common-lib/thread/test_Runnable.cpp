@@ -5,25 +5,6 @@
 
 namespace common::test
 {
-template <typename Derived>
-class Parent
-{
-public :
-    auto interface() -> bool
-    {
-        return static_cast<Derived*>(this)->implement();
-    }
-};
-
-class Child : public Parent<Child>
-{
-public :
-    auto implement() noexcept -> bool
-    {
-        return false;
-    }
-};
-
 TEST(test_Runnable, run)
 {
     // given
