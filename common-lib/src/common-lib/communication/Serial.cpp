@@ -3,6 +3,11 @@
 
 namespace common
 {
+auto Serial::__create() noexcept -> std::shared_ptr<Serial>
+{
+    return std::make_shared<detail::DetailSerial>();
+}
+
 namespace detail
 {
 #if defined(WINDOWS)
@@ -13,15 +18,15 @@ auto SerialHandler::Wrapper_CreateFile(LPCSTR lpFileName,
                                        DWORD dwCreationDisposition,
                                        DWORD dwFlagsAndAttributes,
                                        HANDLE hTemplateFile) -> HANDLE
-    {
-        return CreateFile(lpFileName, 
-                          dwDesiredAccess, 
-                          dwShareMode, 
-                          lpSecurityAttributes, 
-                          dwCreationDisposition, 
-                          dwFlagsAndAttributes, 
-                          hTemplateFile);
-    }
+{
+    return CreateFile(lpFileName, 
+                        dwDesiredAccess, 
+                        dwShareMode, 
+                        lpSecurityAttributes, 
+                        dwCreationDisposition, 
+                        dwFlagsAndAttributes, 
+                        hTemplateFile);
+}
 
 auto SerialHandler::Wrapper_CloseHandle(HANDLE hObject) -> void
 {

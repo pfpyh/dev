@@ -35,7 +35,10 @@ public :
 };
 
 class Serial : public NonCopyable
+             , public Factory<Serial>
 {
+    friend class Factory<Serial>;
+
 public :
     virtual ~Serial() = default;
 
@@ -47,6 +50,9 @@ public :
     virtual auto is_open() noexcept -> bool = 0;
     virtual auto readline() noexcept -> std::string = 0;
     virtual auto write(const char* buffer, const size_t size) noexcept -> bool = 0;
+
+public :
+    static auto __create() noexcept -> std::shared_ptr<Serial>;
 };
 
 namespace detail
@@ -109,6 +115,8 @@ private :
 #endif
 
 public :
+    DetailSerial()
+        : _handler(std::make_shared<SerialHandler>()) {}
     DetailSerial(std::shared_ptr<SerialHandler> handler)
         : _handler(handler) {}
 
