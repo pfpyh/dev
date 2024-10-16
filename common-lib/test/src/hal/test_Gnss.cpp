@@ -1,11 +1,12 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include "hal/Parser.hpp"
+#include "hal/Gnss.hpp"
+#include "common-lib/logging/Logger.hpp"
 
 namespace common::hal::test
 {
-TEST(test_Parser, common_test)
+TEST(test_Gnss, common_test)
 {
     // given
     class MockSerial : public Serial
@@ -19,23 +20,34 @@ TEST(test_Parser, common_test)
     };
 
     auto mockSerial = std::make_shared<MockSerial>();
-    auto parser = Parser::create(mockSerial);
+    auto gnss = Gnss(mockSerial);
 
     // when
     class Receiver : public Observer<Position>
     {
     public :
         Position _last;
+        bool _received = false;
+        Gnss& _gnss;
+
+    public :
+        Receiver(Gnss& gnss)
+            : _gnss(gnss) {}
 
     public:
         auto onEvent(Position position) -> void override
         {
             _last = position;
+            _received = true;
+            _gnss.stop();
         }
     };
-    Receiver receiver;
-    parser->subscribe_update_position(&receiver);
+    Receiver receiver(gnss);
+    gnss.subscribe_update_position(&receiver);
+    auto future = gnss.run();
 
     // then
+    future.wait();
+    ASSERT_TRUE(receiver._received);
 }
 } // namespace common::hal::test
