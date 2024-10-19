@@ -20,12 +20,12 @@ auto SerialHandler::Wrapper_CreateFile(LPCSTR lpFileName,
                                        HANDLE hTemplateFile) -> HANDLE
 {
     return CreateFile(lpFileName, 
-                        dwDesiredAccess, 
-                        dwShareMode, 
-                        lpSecurityAttributes, 
-                        dwCreationDisposition, 
-                        dwFlagsAndAttributes, 
-                        hTemplateFile);
+                      dwDesiredAccess, 
+                      dwShareMode, 
+                      lpSecurityAttributes, 
+                      dwCreationDisposition, 
+                      dwFlagsAndAttributes, 
+                      hTemplateFile);
 }
 
 auto SerialHandler::Wrapper_CloseHandle(HANDLE hObject) -> void

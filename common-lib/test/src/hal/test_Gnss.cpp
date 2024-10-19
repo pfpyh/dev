@@ -19,19 +19,19 @@ TEST(test_Gnss, common_test)
         MOCK_METHOD(bool, write, (const char*, const size_t), (override, noexcept));
     };
 
-    auto mockSerial = std::make_shared<MockSerial>();
-    auto gnss = Gnss(mockSerial);
+    auto mockSerial = MockSerial::create();
+    auto gnss = Gnss::create(mockSerial);
 
     // when
-    class Receiver : public Observer<Position>
+    class Receiver : public Observer<Receiver, Position>
     {
     public :
         Position _last;
         bool _received = false;
-        Gnss& _gnss;
+        std::shared_ptr<Gnss> _gnss;
 
     public :
-        Receiver(Gnss& gnss)
+        Receiver(decltype(_gnss) gnss)
             : _gnss(gnss) {}
 
     public:
@@ -39,15 +39,16 @@ TEST(test_Gnss, common_test)
         {
             _last = position;
             _received = true;
-            _gnss.stop();
+            _gnss->stop();
         }
     };
-    Receiver receiver(gnss);
-    gnss.subscribe_update_position(&receiver);
-    auto future = gnss.run();
+
+    auto receiver = Receiver::create(gnss);
+    gnss->subscribe_update_position(receiver);
+    auto future = gnss->run();
 
     // then
     future.wait();
-    ASSERT_TRUE(receiver._received);
+    ASSERT_TRUE(receiver->_received);
 }
 } // namespace common::hal::test

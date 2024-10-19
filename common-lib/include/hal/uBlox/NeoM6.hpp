@@ -9,8 +9,23 @@ namespace common::hal
 class NeoM6
 {
 public :
-    static auto GPGGA(const std::string& msg, Position& position) -> bool;
-    static auto GPRMC(const std::string& msg, Position& position) -> bool;
-    static auto GPVTG(const std::string& msg, Position& position) -> bool;
+    class SupportType
+    {
+    public :
+        enum type : uint32_t
+        {
+            GPGGA = 0x0001,
+            GPRMC = 0x0002,
+            GPVTG = 0x0004,
+        };
+    };
+
+public :
+    static auto parse(const std::string& message) noexcept -> Position;
+
+private :
+    static auto GPGGA(const std::string& message, Position& position) -> bool;
+    static auto GPRMC(const std::string& message, Position& position) -> bool;
+    static auto GPVTG(const std::string& message, Position& position) -> bool;
 };
 } // common::hal
