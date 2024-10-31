@@ -45,9 +45,9 @@ namespace common
  * @note A derived class must implement the pure virtual functions start() and stop() to execute a task.
  */
 class Timer : public NonCopyable, 
-              public UniqueFactory<Timer, std::function<bool()>, std::chrono::microseconds>
+              public UniqueFactory<Timer>
 {
-    friend class UniqueFactory<Timer, std::function<bool()>, std::chrono::microseconds>;
+    friend class UniqueFactory<Timer>;
 
 public :
     using Function = std::function<bool()>;

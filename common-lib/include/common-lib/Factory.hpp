@@ -37,7 +37,7 @@ namespace common
  * @tparam Derived The type of object to be created.
  * @tparam Args The types of arguments to be passed to the create function.
  */
-template <typename Derived, typename... Args>
+template <typename Derived>
 class Factory
 {
 public :
@@ -47,7 +47,8 @@ public :
      * @param args The arguments to be passed to the create function.
      * @return A shared pointer to an object of the derived type.
      */
-    static auto create(Args&&... args) noexcept -> std::shared_ptr<Derived>
+    template <typename... Args>
+    static auto create(Args... args) noexcept -> std::shared_ptr<Derived>
     {
         return Derived::__create(std::forward<Args>(args)...);
     }
@@ -68,7 +69,7 @@ public :
  * @tparam Derived The type of object to be created.
  * @tparam Args The types of arguments to be passed to the create function.
  */
-template <typename Derived, typename... Args>
+template <typename Derived>
 class UniqueFactory
 {
 public :
@@ -78,7 +79,8 @@ public :
      * @param args The arguments to be passed to the create function.
      * @return A unique pointer to an object of the derived type.
      */
-    static auto create(Args&&... args) noexcept -> std::unique_ptr<Derived>
+    template <typename... Args>
+    static auto create(Args... args) noexcept -> std::unique_ptr<Derived>
     {
         return Derived::__create(std::forward<Args>(args)...);
     }
