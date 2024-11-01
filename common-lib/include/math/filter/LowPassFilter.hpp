@@ -1,6 +1,6 @@
 #pragma once
 
-namespace math
+namespace common::math
 {
 template <typename T>
 class LowPassFilter
@@ -25,4 +25,4 @@ public:
         return _prev;
     };
 };
-} // namespace math
+} // namespace common::math

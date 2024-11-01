@@ -4,6 +4,7 @@ project(${TARGET_NAME})
 file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp)
 
 set(INCLUDES ${INCLUDES}
+             ${CMAKE_CURRENT_LIST_DIR}/include
              ${GTEST_BASE_DIR}/googletest/include
              ${GTEST_BASE_DIR}/googlemock/include)
 
