@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 
-#include "common-lib/communication/Socket.hpp"
-#include "common-lib/thread/Thread.hpp"
+#include "common/communication/Socket.hpp"
+#include "common/thread/Thread.hpp"
 
-#include "common-lib/logging/Logger.hpp"
+#include "common/logging/Logger.hpp"
 
 namespace common::test
 {

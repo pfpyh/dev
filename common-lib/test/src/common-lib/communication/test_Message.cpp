@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 
-#include "common-lib/communication/Message.hpp"
+#include "common/communication/Message.hpp"
 
 namespace common::test
 {

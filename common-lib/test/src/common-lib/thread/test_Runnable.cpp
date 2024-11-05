@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <thread>
 
-#include "common-lib/thread/Runnable.hpp"
+#include "common/thread/Runnable.hpp"
 
 namespace common::test
 {

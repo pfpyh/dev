@@ -1,9 +1,9 @@
 #pragma once
 
-#include "common-lib/Observer.hpp"
-#include "common-lib/thread/Runnable.hpp"
-#include "common-lib/Factory.hpp"
-#include "common-lib/communication/Serial.hpp"
+#include "common/Observer.hpp"
+#include "common/thread/Runnable.hpp"
+#include "common/Factory.hpp"
+#include "common/communication/Serial.hpp"
 
 #include "hal/types/Position.hpp"
 

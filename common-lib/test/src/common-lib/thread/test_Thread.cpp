@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "common-lib/thread/Thread.hpp"
+#include "common/thread/Thread.hpp"
 
 namespace common::test
 {
