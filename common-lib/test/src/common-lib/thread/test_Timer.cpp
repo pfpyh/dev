@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "common-lib/thread/Timer.hpp"
-#include "common-lib/logging/Logger.hpp"
+#include "common/thread/Timer.hpp"
+#include "common/logging/Logger.hpp"
 
 #include <thread>
 

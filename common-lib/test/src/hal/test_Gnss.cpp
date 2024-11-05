@@ -2,7 +2,7 @@
 #include <gmock/gmock.h>
 
 #include "hal/Gnss.hpp"
-#include "common-lib/logging/Logger.hpp"
+#include "common/logging/Logger.hpp"
 
 namespace common::hal::test
 {

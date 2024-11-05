@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
-#include "common-lib/communication/Serial.hpp"
+#include "common/communication/Serial.hpp"
 
 namespace common::detail::test
 {

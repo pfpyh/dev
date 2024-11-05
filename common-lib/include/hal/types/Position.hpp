@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common-lib/Observer.hpp"
+#include "common/Observer.hpp"
 
 namespace common::hal
 {
