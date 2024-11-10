@@ -3,11 +3,11 @@
 #include "common/Observer.hpp"
 #include "hal/Gnss.hpp"
 
-class GnssReceiver : public common::Observer<GnssReceiver, common::hal::Position>
+class GnssReceiver : public common::Observer<GnssReceiver, common::hal::PositionData>
 {
 private :
-    common::hal::Position _last;
+    common::hal::PositionData _last;
 
 public :
-    auto onEvent(common::hal::Position position) -> void override;
+    auto onEvent(common::hal::PositionData data) -> void override;
 };

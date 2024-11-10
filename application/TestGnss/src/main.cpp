@@ -9,7 +9,7 @@ int main()
     using namespace common;
 
     auto serial = Serial::create();
-    if (!serial->open("COM7", Baudrate::_9600, SERIAL_READ | SERIAL_WRITE))
+    if (!serial->open("COM7", Baudrate::_9600, SERIAL_READ))
     {
         _ERROR_("Failed to open serial port");
         return -1;

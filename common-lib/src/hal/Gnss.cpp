@@ -6,12 +6,12 @@ namespace common::hal
 Gnss::Gnss(std::shared_ptr<Serial> serial)
     : _serial(serial) {}
 
-auto Gnss::subscribe_update_position(std::shared_ptr<BaseObserver<Position>> observer) -> void
+auto Gnss::subscribe_update_position(std::shared_ptr<BaseObserver<PositionData>> observer) -> void
 {
     _updatePosition.regist(std::move(observer));
 }
 
-auto Gnss::unsubscribe_update_position(std::shared_ptr<BaseObserver<Position>> observer) -> void
+auto Gnss::unsubscribe_update_position(std::shared_ptr<BaseObserver<PositionData>> observer) -> void
 {
     _updatePosition.unregist(std::move(observer));
 }
@@ -20,10 +20,9 @@ auto Gnss::__work() -> void
 {
     const std::string msg(_serial->readline());
     auto position = NeoM6::parse(msg);
-
     if(position._type & NeoM6::SupportType::GPGGA)
     {
-        _updatePosition.notify(_position);
+        _updatePosition.notify(position);
     }
 }
 

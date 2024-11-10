@@ -1,6 +1,6 @@
 #pragma once
 
-#include "hal/types/Position.hpp"
+#include "hal/types/PositionData.hpp"
 
 #include <string>
 
@@ -21,6 +21,6 @@ public :
     };
 
 public :
-    static auto parse(const std::string& message) noexcept -> Position;
+    static auto parse(const std::string& message) noexcept -> PositionData;
 };
 } // common::hal
