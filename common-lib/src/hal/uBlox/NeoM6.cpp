@@ -31,48 +31,49 @@ auto to_decimal_degree(const std::string& degreesMinutes, const std::string& dir
     return decimalDegrees;
 }
 
-auto GPGGA(const std::vector<std::string>& tokens, Position& position) -> bool
+auto GPGGA(const std::vector<std::string>& tokens, PositionData& data) -> bool
 {
     if (tokens.size() > 5 && tokens[0] == "$GPGGA")
     {
-        position._latitude = to_decimal_degree(tokens[2], tokens[3]);
-        position._longitude = to_decimal_degree(tokens[4], tokens[5]);
+        data._utc = std::stod(tokens[1]);
+        data._latitude = to_decimal_degree(tokens[2], tokens[3]);
+        data._longitude = to_decimal_degree(tokens[4], tokens[5]);
         return true;
     }
     return false;
 }
 
-auto GPRMC(const std::vector<std::string>& tokens, Position& position) -> bool
+auto GPRMC(const std::vector<std::string>& tokens, PositionData& data) -> bool
 {
-    return true;
+    return false;
 }
 
-auto GPVTG(const std::vector<std::string>& tokens, Position& position) -> bool
+auto GPVTG(const std::vector<std::string>& tokens, PositionData& data) -> bool
 {
-    return true;
+    return false;
 }
 
-auto NeoM6::parse(const std::string& message) noexcept -> Position
+auto NeoM6::parse(const std::string& message) noexcept -> PositionData
 {
-    std::vector<std::string> tokens(string_split(message));
+    const std::vector<std::string> tokens(string_split(message));
 
-    Position position;
+    PositionData data;
 
-    if(GPGGA(tokens, position))
+    if(GPGGA(tokens, data))
     {
-        position._type = (position._type | SupportType::GPGGA);
+        data._type = (data._type | SupportType::GPGGA);
     }
 
-    if(GPRMC(tokens, position))
+    if(GPRMC(tokens, data))
     {
-        position._type = (position._type | SupportType::GPRMC);
+        data._type = (data._type | SupportType::GPRMC);
     }
 
-    if(GPVTG(tokens, position))
+    if(GPVTG(tokens, data))
     {
-        position._type = (position._type | SupportType::GPVTG);
+        data._type = (data._type | SupportType::GPVTG);
     }
 
-    return position;
+    return data;
 }
 } // namespace common::hal
