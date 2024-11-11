@@ -5,7 +5,7 @@
 
 #include <stdint.h>
 
-namespace math
+namespace common::math
 {
 template <typename T>
 class KalmanFilter
@@ -45,4 +45,4 @@ public :
         return _x;
     };
 };
-} // namespace math
+} // namespace common::math

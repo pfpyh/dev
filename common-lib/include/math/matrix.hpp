@@ -11,7 +11,7 @@
 #include <stdexcept>
 #endif
 
-namespace math
+namespace common::math
 {
 template <typename T>
 class Matrix;
@@ -411,4 +411,4 @@ auto inverse(const Matrix<T>& mat) -> Matrix<T>
     }
 };
 } // namespace util
-} // namespace math
+} // namespace common::math

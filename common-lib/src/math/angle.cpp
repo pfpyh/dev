@@ -3,7 +3,7 @@
 
 #include <cstdlib>
 
-namespace math
+namespace common::math
 {
 
 Euler::Euler() {};
@@ -139,4 +139,4 @@ auto Quaternion::from_matrix(const Matrix<double>& m) -> Quaternion
         throw std::out_of_range("Matrix size not matched.");
     return Quaternion(m[0][0], m[1][0], m[2][0], m[3][0]);
 };
-} // namespace math
+} // namespace common::math

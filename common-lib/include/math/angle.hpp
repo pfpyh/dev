@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-namespace math
+namespace common::math
 {
 class Euler;
 class Quaternion;
@@ -49,4 +49,4 @@ public:
 
     static auto from_matrix(const Matrix<double>& m)->Quaternion;
 };
-} // namespace math
+} // namespace common::math
