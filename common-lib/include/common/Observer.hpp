@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <memory>
+#include <algorithm>
 
 namespace common
 {
@@ -26,7 +27,7 @@ public :
 
     auto get_ptr() noexcept -> std::shared_ptr<Observer<Derived, Args...>>
     {
-        return shared_from_this();
+        return this->shared_from_this();
     }
 
 public :
@@ -52,13 +53,28 @@ public :
 
     auto unregist(BaseObserver<Args...>& observer) noexcept -> void
     {
-        auto target = observer.get_ptr();
-        _observers.erase(std::remove(_observers.begin(), _observers.end(), target), _observers.end());
+        // auto target = observer.get_ptr();
+        // _observers.erase(std::remove(_observers.begin(), _observers.end(), target), _observers.end());
+
+                auto target = observer.get_ptr();
+        _observers.erase(
+            std::remove_if(_observers.begin(), _observers.end(),
+                           [&target](const std::shared_ptr<BaseObserver<Args...>>& obs) {
+                               return obs == target;
+                           }),
+            _observers.end());
     }
 
     auto unregist(std::shared_ptr<BaseObserver<Args...>> observer) noexcept -> void
     {
-        _observers.erase(std::remove(_observers.begin(), _observers.end(), observer), _observers.end());
+        // _observers.erase(std::remove(_observers.begin(), _observers.end(), observer), _observers.end());
+
+        _observers.erase(
+            std::remove_if(_observers.begin(), _observers.end(),
+                           [&observer](const std::shared_ptr<BaseObserver<Args...>>& obs) {
+                               return obs == observer;
+                           }),
+            _observers.end());
     }
 
     auto notify(Args... args) -> void

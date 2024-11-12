@@ -2,6 +2,7 @@
 
 #include <functional>
 #include <stdint.h>
+#include <cmath>
 
 #define MATH_EXCEPTION_ENABLE
 
@@ -344,7 +345,7 @@ auto determine(const Matrix<T>& minor_mat, int32_t size) -> T
         for (int32_t col = 0; col < size; col++)
         {
             minor(minor_mat, col, new_minor_mat);	// function
-            sum += static_cast<T>((minor_mat[0][col] * pow(-1, col) * determine(new_minor_mat, (size - 1))));
+            sum += static_cast<T>((minor_mat[0][col] * std::pow(-1, col) * determine(new_minor_mat, (size - 1))));
         }
     }
     return sum;

@@ -134,10 +134,10 @@ auto DetailSerial::open(const std::string& port,
         default: CBRBaudrate = CBR_9600; break;
     };
 
-    dcbSerialParams.BaudRate = CBRBaudrate; // 보드레이트 설정
-    dcbSerialParams.ByteSize = 8;        // 데이터 비트 설정 (8 비트)
-    dcbSerialParams.StopBits = ONESTOPBIT; // 스톱 비트 설정 (1 비트)
-    dcbSerialParams.Parity = NOPARITY;   // 패리티 없음
+    dcbSerialParams.BaudRate = CBRBaudrate;
+    dcbSerialParams.ByteSize = 8;
+    dcbSerialParams.StopBits = ONESTOPBIT;
+    dcbSerialParams.Parity = NOPARITY;
 
     if (!_handler->Wrapper_SetCommState(_handle, &dcbSerialParams)) 
     {
@@ -146,11 +146,11 @@ auto DetailSerial::open(const std::string& port,
     }
 
     COMMTIMEOUTS timeouts = {0};
-    timeouts.ReadIntervalTimeout = 50;   // 읽기 간격 타임아웃
-    timeouts.ReadTotalTimeoutConstant = 50; // 읽기 상수 타임아웃
-    timeouts.ReadTotalTimeoutMultiplier = 10; // 읽기 타임아웃 승수
-    timeouts.WriteTotalTimeoutConstant = 50; // 쓰기 상수 타임아웃
-    timeouts.WriteTotalTimeoutMultiplier = 10; // 쓰기 타임아웃 승수
+    timeouts.ReadIntervalTimeout = 50;
+    timeouts.ReadTotalTimeoutConstant = 50;
+    timeouts.ReadTotalTimeoutMultiplier = 10;
+    timeouts.WriteTotalTimeoutConstant = 50;
+    timeouts.WriteTotalTimeoutMultiplier = 10;
 
     if (!_handler->Wrapper_SetCommTimeouts(_handle, &timeouts)) 
     {
@@ -182,11 +182,11 @@ auto DetailSerial::open(const std::string& port,
     tcgetattr(_fd, &options);
     cfsetispeed(&options, B9600);
     cfsetospeed(&options, B9600);
-    options.c_cflag |= (CLOCAL | CREAD);    // Ignore modem control lines
-    options.c_cflag &= ~PARENB;              // No parity
-    options.c_cflag &= ~CSTOPB;              // 1 stop bit
-    options.c_cflag &= ~CSIZE;               // Clear character size bits
-    options.c_cflag |= CS8;                   // 8 data bits
+    options.c_cflag |= (CLOCAL | CREAD);
+    options.c_cflag &= ~PARENB;
+    options.c_cflag &= ~CSTOPB;
+    options.c_cflag &= ~CSIZE;
+    options.c_cflag |= CS8;
 
     tcsetattr(_fd, TCSANOW, &options);
 

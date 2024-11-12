@@ -47,7 +47,7 @@ auto Euler::to_matrix() noexcept -> Matrix<double>
     return m;
 };
 
-auto Euler::from_matrix(const Matrix<double>& m) -> Euler&&
+auto Euler::from_matrix(const Matrix<double>& m) -> Euler
 {
     if (m._col != 1 || m._row != 3)
         throw std::out_of_range("Matrix size not matched.");
@@ -56,17 +56,17 @@ auto Euler::from_matrix(const Matrix<double>& m) -> Euler&&
 
 auto Euler::from_acc(const double x,
                      const double y,
-                     const double z) noexcept -> Euler&&
+                     const double z) noexcept -> Euler
 {
     Euler e;
     e._pitch = std::asin(x / 9.8);
     e._roll = std::asin((-1) * y / (9.8 * std::cos(e._pitch)));
     e._yaw = 0.0;
-    return std::move(e);
+    return e;
 };
 
 auto Euler::from_acc(const double x,
-                     const double y) noexcept -> Euler&&
+                     const double y) noexcept -> Euler
 {
     return from_acc(x, y, 0.0);
 };

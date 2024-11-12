@@ -23,12 +23,12 @@ public :
     auto to_quaternion() noexcept ->Quaternion;
     auto to_matrix() noexcept ->Matrix<double>;
 
-    static auto from_matrix(const Matrix<double>& m)->Euler&&;
+    static auto from_matrix(const Matrix<double>& m) -> Euler;
     static auto from_acc(const double x, 
                          const double y, 
-                         const double z) noexcept ->Euler&&;
+                         const double z) noexcept -> Euler;
     static auto from_acc(const double x,
-                         const double y) noexcept ->Euler&&;
+                         const double y) noexcept -> Euler;
 };
 
 class Quaternion

@@ -11,22 +11,54 @@ template <typename T>
 class KalmanFilter
 {
 private :
-    T _H;
-    T _Q;
-    T _R;
-    T _x;
+    const T _Q;
+    const T _R;
     T _P;
+
+public :
+    KalmanFilter(const T& Q,
+                 const T& R,
+                 const T& P)
+        : _Q(Q), _R(R), _P(P) {};
+
+    auto run(const T& measurement, const T& prediction) -> T
+    {
+        // predict
+        _P = _P + _Q;
+
+        // kalman gain
+        auto K = _P / (_P + _R);
+
+        // estimate
+        auto xp = prediction + K * (measurement - prediction);
+
+        // update
+        _P = (1 - K) * _P;
+
+        return xp;
+    };
+};
+
+template <typename T>
+class KalmanFilter<Matrix<T>>
+{
+private :
+    Matrix<T> _H;
+    Matrix<T> _Q;
+    Matrix<T> _R;
+    Matrix<T> _x;
+    Matrix<T> _P;
     bool _first = true;
 
 public :
-    KalmanFilter(const T& H,
-                 const T& Q,
-                 const T& R,
-                 const T& x,
-                 const T& P)
+    KalmanFilter(const Matrix<T>& H,
+                 const Matrix<T>& Q,
+                 const Matrix<T>& R,
+                 const Matrix<T>& x,
+                 const Matrix<T>& P)
         : _H(H), _Q(Q), _R(R), _x(x), _P(P) {};
 
-    auto run(const T& A, const T& z) -> const decltype(_x)&
+    auto run(const Matrix<T>& A, const Matrix<T>& z) -> decltype(_x)
     {
         if (!_first)
         {
