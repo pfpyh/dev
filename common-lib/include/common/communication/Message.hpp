@@ -13,9 +13,9 @@
 namespace common
 {
 template <typename DataType>
-class Message : public NonCopyable, public Factory<Message<DataType>, std::string, int32_t>
+class Message : public NonCopyable, public Factory<Message<DataType>>
 {
-    friend class Factory<Message<DataType>, std::string, int32_t>;
+    friend class Factory<Message<DataType>>;
 
 private :
     struct MessageType

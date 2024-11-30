@@ -1,0 +1,5 @@
+{
+    "cmake.configureArgs": [
+        "-DGTEST_BASE_DIR=/home/pfpyh/project/ext_libs/googletest-1.15.2"
+    ],
+}

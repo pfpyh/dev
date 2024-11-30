@@ -5,10 +5,33 @@
 #include "common/Factory.hpp"
 #include "common/communication/Serial.hpp"
 
+#include "math/filter/KalmanFilter.hpp"
+
 #include "hal/types/ImuData.hpp"
 
 namespace common::hal
 {
+namespace detail
+{
+class YawCalculator
+{
+private :
+    double _prevAccYaw = 0.0;
+    double _prevGyrYaw = 0.0;
+    const double _alpha = 0.98;
+
+public :
+    auto calculate(double gyrZ, double accX, double accY, double dt) -> double
+    {
+        const auto accYaw = atan2(accY, accX);
+        const auto accYawRate = (accYaw - _prevAccYaw) / dt;
+        const auto fusionYawRate = _alpha * gyrZ + (1 - _alpha) * accYawRate;
+        _prevAccYaw = accYaw;
+        return fusionYawRate;
+    }
+};
+} // namespace detail
+
 class Imu : public Runnable
           , public Factory<Imu>
 {
@@ -16,6 +39,14 @@ class Imu : public Runnable
 
 private :
     std::shared_ptr<Serial> _serial;
+
+    math::KalmanFilter<double> _filterRoll{0.1, 1.0, 1.0};
+    math::KalmanFilter<double> _filterPitch{0.1, 1.0, 1.0};
+    math::KalmanFilter<double> _filterYaw{0.1, 1.0, 1.0};
+
+    detail::YawCalculator _yawCal;
+
+
     EventUpdateImuData _updateImuData;
     ImuData _data;
 

@@ -18,10 +18,10 @@ TEST(test_Gnss, common_test)
     auto gnss = Gnss::create(mockSerial);
 
     // when
-    class Receiver : public Observer<Receiver, Position>
+    class Receiver : public Observer<Receiver, PositionData>
     {
     public :
-        Position _last;
+        PositionData _last;
         bool _received = false;
         std::weak_ptr<Gnss> _gnss;
 
@@ -30,7 +30,7 @@ TEST(test_Gnss, common_test)
             : _gnss(gnss) {}
 
     public:
-        auto onEvent(Position position) -> void override
+        auto onEvent(PositionData position) -> void override
         {
             _last = position;
             _received = true;

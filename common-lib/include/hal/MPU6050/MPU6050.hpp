@@ -1,6 +1,6 @@
 #pragma once
 
-#include "hal/types/IMUData.hpp"
+#include "hal/types/ImuData.hpp"
 
 #include <tuple>
 #include <string>
