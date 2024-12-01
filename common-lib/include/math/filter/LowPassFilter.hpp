@@ -1,9 +1,11 @@
 #pragma once
 
+#include "CommonHeader.hpp"
+
 namespace common::math
 {
 template <typename T>
-class LowPassFilter
+class COMMON_LIB_API LowPassFilter
 {
 private:
     T _prev;

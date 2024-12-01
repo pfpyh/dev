@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CommonHeader.hpp"
+
 #include "NonCopyable.hpp"
 
 namespace common
@@ -12,7 +14,7 @@ namespace common
  * @tparam T The type of the Singleton instance.
  */
 template<typename Derived>
-class Singleton : public NonCopyable
+class COMMON_LIB_API Singleton : public NonCopyable
 {
     friend Derived;
     

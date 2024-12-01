@@ -1,5 +1,6 @@
 #pragma once
 
+#include "CommonHeader.hpp"
 #include "common/NonCopyable.hpp"
 #include "common/Factory.hpp"
 
@@ -20,8 +21,8 @@ namespace common
  *
  * @note A derived class must implement the pure virtual functions start() and stop() to execute a task.
  */
-class Timer : public NonCopyable, 
-              public UniqueFactory<Timer>
+class COMMON_LIB_API Timer : public NonCopyable, 
+                             public UniqueFactory<Timer>
 {
     friend class UniqueFactory<Timer>;
 

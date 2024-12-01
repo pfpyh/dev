@@ -1,12 +1,13 @@
 #pragma once
 
+#include "CommonHeader.hpp"
 #include "hal/types/PositionData.hpp"
 
 #include <string>
 
 namespace common::hal
 {
-class NeoM6
+class COMMON_LIB_API NeoM6
 {
 public :
     class SupportType

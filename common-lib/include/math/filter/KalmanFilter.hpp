@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CommonHeader.hpp"
+
 #include "math/matrix.hpp"
 #include "math/angle.hpp"
 
@@ -8,7 +10,7 @@
 namespace common::math
 {
 template <typename T>
-class KalmanFilter
+class COMMON_LIB_API KalmanFilter
 {
 private :
     const T _Q;
@@ -40,7 +42,7 @@ public :
 };
 
 template <typename T>
-class KalmanFilter<Matrix<T>>
+class COMMON_LIB_API KalmanFilter<Matrix<T>>
 {
 private :
     Matrix<T> _H;

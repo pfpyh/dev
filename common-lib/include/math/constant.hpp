@@ -1,5 +1,6 @@
 #pragma once
 
+#include "CommonHeader.hpp"
 #include <cmath>
 
 namespace common::math

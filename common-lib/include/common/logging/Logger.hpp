@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CommonHeader.hpp"
+
 #include <memory>
 #include <string>
 #include <cstring>
@@ -15,7 +17,7 @@
 
 namespace common
 {
-class Logger
+class COMMON_LIB_API Logger
 {
 private :
     template <typename ... Args>

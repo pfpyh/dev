@@ -1,10 +1,11 @@
 #pragma once
 
+#include "CommonHeader.hpp"
 #include "common/exception/BaseException.hpp"
 
 namespace common::exception
 {
-class LimitExceedException : public Exception
+class COMMON_LIB_API LimitExceedException : public Exception
 {
 public :
     LimitExceedException() noexcept

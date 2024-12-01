@@ -1,10 +1,11 @@
 #pragma once
 
+#include "CommonHeader.hpp"
 #include "common/Observer.hpp"
 
 namespace common::hal
 {
-struct Position
+struct COMMON_LIB_API Position
 {
     uint32_t _type = 0x0;
     double _longitude = 0;
@@ -12,7 +13,7 @@ struct Position
     int32_t _altitude = 0;
 };
 
-class EventUpdatePosition : public Subject<Position>
+class COMMON_LIB_API EventUpdatePosition : public Subject<Position>
 {
 
 };

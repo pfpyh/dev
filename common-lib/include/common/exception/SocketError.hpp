@@ -1,10 +1,11 @@
 #pragma once
 
+#include "CommonHeader.hpp"
 #include "common/exception/BaseException.hpp"
 
 namespace common::exception
 {
-class SocketErrorException : public Exception
+class COMMON_LIB_API SocketErrorException : public Exception
 {
 public :
     SocketErrorException() noexcept

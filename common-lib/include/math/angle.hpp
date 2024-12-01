@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CommonHeader.hpp"
+
 #include <cmath>
 
 namespace common::math
@@ -8,7 +10,7 @@ class Euler;
 class Quaternion;
 template <typename T> class Matrix;
 
-class Euler
+class COMMON_LIB_API Euler
 {
 public :
     double _roll = 0.0;
@@ -31,7 +33,7 @@ public :
                          const double y) noexcept -> Euler;
 };
 
-class Quaternion
+class COMMON_LIB_API Quaternion
 {
 public:
     double _w = 0.0;

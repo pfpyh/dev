@@ -1,5 +1,6 @@
 #pragma once
 
+#include "CommonHeader.hpp"
 #include "common/NonCopyable.hpp"
 #include "common/Factory.hpp"
 
@@ -20,7 +21,8 @@ namespace common
  * 
  * @note Detailed implementation can be different based on sysytem.
  */
-class Thread : public NonCopyable, public Factory<Thread>
+class COMMON_LIB_API Thread : public NonCopyable
+                            , public Factory<Thread>
 {
     friend class Factory<Thread>;
 

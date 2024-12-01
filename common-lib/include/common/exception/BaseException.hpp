@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CommonHeader.hpp"
+
 #include <exception>
 #include <string>
 
@@ -15,7 +17,7 @@ enum ExceptionType : uint8_t
     LimitExceed,
 };
 
-class Exception : public std::exception
+class COMMON_LIB_API Exception : public std::exception
 {
 private :
     ExceptionType _type = Undefined;
