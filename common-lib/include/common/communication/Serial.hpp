@@ -1,9 +1,10 @@
 #pragma once
 
-#include <string>
-
+#include "CommonHeader.hpp"
 #include "common/NonCopyable.hpp"
 #include "common/Factory.hpp"
+
+#include <string>
 
 #if defined(WINDOWS)
 #include <windows.h>
@@ -18,7 +19,7 @@ namespace common
 static constexpr uint8_t SERIAL_READ = 0x01;
 static constexpr uint8_t SERIAL_WRITE = 0x02;
 
-class Baudrate
+class COMMON_LIB_API Baudrate
 {
 public :
     enum type : uint8_t
@@ -34,8 +35,8 @@ public :
     };
 };
 
-class Serial : public NonCopyable
-             , public Factory<Serial>
+class COMMON_LIB_API Serial : public NonCopyable
+                            , public Factory<Serial>
 {
     friend class Factory<Serial>;
 
@@ -57,7 +58,7 @@ public :
 
 namespace detail
 {
-class SerialHandler
+class COMMON_LIB_API SerialHandler
 {
 public :
     virtual ~SerialHandler() = default;
@@ -102,7 +103,7 @@ public :
 #endif
 };
 
-class DetailSerial : public Serial
+class COMMON_LIB_API DetailSerial : public Serial
 {
 private :
     std::shared_ptr<SerialHandler> _handler;

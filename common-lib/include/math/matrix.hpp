@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CommonHeader.hpp"
+
 #include <functional>
 #include <stdint.h>
 #include <cmath>
@@ -39,7 +41,7 @@ auto inverse(const Matrix<T>& mat) -> Matrix<T>;
 } // namespace util
 
 template <typename T>
-class Matrix
+class COMMON_LIB_API Matrix
 {
 private :
     T** _mat = nullptr;

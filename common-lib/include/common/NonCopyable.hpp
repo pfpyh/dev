@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CommonHeader.hpp"
+
 namespace common
 {
 /**
@@ -8,7 +10,7 @@ namespace common
  * This class is a base class that prevents objects of derived classes from being copied or assigned.
  * It does this by deleting the copy constructor and copy assignment operator.
  */
-class NonCopyable
+class COMMON_LIB_API NonCopyable
 {
 public :
     /**

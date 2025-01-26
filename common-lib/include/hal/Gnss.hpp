@@ -1,5 +1,6 @@
 #pragma once
 
+#include "CommonHeader.hpp"
 #include "common/Observer.hpp"
 #include "common/thread/Runnable.hpp"
 #include "common/Factory.hpp"
@@ -9,8 +10,8 @@
 
 namespace common::hal
 {
-class Gnss : public Runnable
-           , public Factory<Gnss>
+class COMMON_LIB_API Gnss : public Runnable
+                          , public Factory<Gnss>
 {
     friend class Factory<Gnss>;
 

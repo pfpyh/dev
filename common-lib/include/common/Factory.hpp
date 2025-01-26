@@ -1,5 +1,7 @@
 #pragma once
 
+#include "CommonHeader.hpp"
+
 #include <memory>
 
 namespace common
@@ -14,7 +16,7 @@ namespace common
  * @tparam Args The types of arguments to be passed to the create function.
  */
 template <typename Derived>
-class Factory
+class COMMON_LIB_API Factory
 {
 public :
     /**
@@ -46,7 +48,7 @@ public :
  * @tparam Args The types of arguments to be passed to the create function.
  */
 template <typename Derived>
-class UniqueFactory
+class COMMON_LIB_API UniqueFactory
 {
 public :
     /**

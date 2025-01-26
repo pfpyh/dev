@@ -1,5 +1,6 @@
 #pragma once
 
+#include "CommonHeader.hpp"
 #include "common/Observer.hpp"
 #include "common/thread/Runnable.hpp"
 #include "common/Factory.hpp"
@@ -13,7 +14,7 @@ namespace common::hal
 {
 namespace detail
 {
-class YawCalculator
+class COMMON_LIB_API YawCalculator
 {
 private :
     double _prevAccYaw = 0.0;
@@ -32,8 +33,8 @@ public :
 };
 } // namespace detail
 
-class Imu : public Runnable
-          , public Factory<Imu>
+class COMMON_LIB_API Imu : public Runnable
+                         , public Factory<Imu>
 {
     friend class Factory<Imu>;
 
@@ -45,7 +46,6 @@ private :
     math::KalmanFilter<double> _filterYaw{0.1, 1.0, 1.0};
 
     detail::YawCalculator _yawCal;
-
 
     EventUpdateImuData _updateImuData;
     ImuData _data;

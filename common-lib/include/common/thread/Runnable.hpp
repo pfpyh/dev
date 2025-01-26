@@ -1,5 +1,6 @@
 #pragma once
 
+#include "CommonHeader.hpp"
 #include "common/thread/Thread.hpp"
 #include "common/exception/Exception.hpp"
 #include "common/NonCopyable.hpp"
@@ -14,7 +15,7 @@ namespace common
  *
  * @note A derived class must implement the pure virtual function __work() to execute a task.
  */
-class Runnable : public NonCopyable
+class COMMON_LIB_API Runnable : public NonCopyable
 {
 private :
     std::promise<void> _promise;
@@ -86,7 +87,7 @@ protected :
  * @note A derived class must implement the pure virtual function __work() to execute a task.
  */
 template <typename DataType>
-class ActiveRunnable
+class COMMON_LIB_API ActiveRunnable
 {
 private :
     std::promise<void> _promise;

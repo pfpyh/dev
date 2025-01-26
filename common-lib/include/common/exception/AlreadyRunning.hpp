@@ -1,10 +1,11 @@
 #pragma once
 
+#include "CommonHeader.hpp"
 #include "common/exception/BaseException.hpp"
 
 namespace common::exception
 {
-class AlreadyRunningException : public Exception
+class COMMON_LIB_API AlreadyRunningException : public Exception
 {
 public :
     AlreadyRunningException() noexcept

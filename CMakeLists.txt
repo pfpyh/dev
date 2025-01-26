@@ -11,5 +11,21 @@ elseif (UNIX)
     add_definitions(-DLINUX)
 endif()
 
+if(DEFINED GTEST_BASE_DIR)
+    message("GTEST_BASE_DIR = ${GTEST_BASE_DIR}")
+    set(GTEST_ENABLED ON)
+endif()
+
+if(DEFINED PYTHON_BASE_DIR)
+    message("PYTHON_BASE_DIR = ${PYTHON_BASE_DIR}")
+    set(PYTHON_BUILD ON)
+    set(PYBIND_BASE_DIR ${PYTHON_BASE_DIR}/Lib/site-packages/pybind11)
+    set(CMAKE_PREFIX_PATH "${PYBIND_BASE_DIR}/share/cmake/pybind11" 
+                          ${CMAKE_PREFIX_PATH})
+    
+    find_package(pybind11 REQUIRED)
+    find_package(Python3 COMPONENTS Interpreter Development)
+endif()
+
 add_subdirectory(common-lib)
 add_subdirectory(application)

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "CommonHeader.hpp"
 #include "common/NonCopyable.hpp"
 #include "common/Factory.hpp"
 
@@ -9,7 +10,7 @@
 
 namespace common
 {
-class SocketType
+class COMMON_LIB_API SocketType
 {
 public :
     enum type : uint8_t
@@ -19,7 +20,8 @@ public :
     };
 };
 
-class Socket : public NonCopyable, public Factory<Socket>
+class COMMON_LIB_API Socket : public NonCopyable
+                            , public Factory<Socket>
 {
     friend class Factory<Socket>;
     
