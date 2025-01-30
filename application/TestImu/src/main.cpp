@@ -1,15 +1,24 @@
 #include "common/communication/Serial.hpp"
 #include "common/logging/Logger.hpp"
-#include "hal/Imu.hpp"
 
-#include "ImuReceiver.hpp"
+#include "hal/Imu.hpp"
+#include "hal/imu/MPU6050.hpp"
+
+class ImuReceiver : public ::common::hal::MPU6050::DefaultObserver
+{
+public :
+    auto onDirectionUpdate(const double direction) -> void override 
+    { 
+        _INFO_("IMU direction: %f", direction); 
+    }
+};
 
 int main()
 {
     using namespace common;
 
     auto serial = Serial::create();
-    if (!serial->open("COM3", Baudrate::_38400, SERIAL_READ))
+    if (!serial->open("COM5", Baudrate::_38400, SERIAL_READ))
     {
         _ERROR_("Failed to open serial port");
         return -1;

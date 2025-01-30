@@ -1,10 +1,26 @@
-#include "hal/MPU6050/MPU6050.hpp"
+#include "hal/imu/MPU6050.hpp"
 #include "common/logging/Logger.hpp"
 
 #include <sstream>
 
-namespace common::hal
+namespace common::hal::MPU6050
 {
+auto DefaultObserver::onEvent(common::hal::ImuData data) -> void
+{
+    auto now = std::chrono::steady_clock::now();
+    const auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - _prevRcvTime);
+    _prevRcvTime = now;
+
+    constexpr double dt = 0.01; // 100Hz
+    _direction += data._z * dt;
+    while (_direction > 180.0) { _direction -= 360.0; }
+    while (_direction < -180.0) { _direction += 360.0; }
+
+    _INFO_("IMU[%f, %f, %f] DIR[%f] (%lld ms)", data._x, data._y, data._z, _direction, duration.count());
+
+    onDirectionUpdate(_direction);
+}
+
 auto stoi(const std::string& str) -> int32_t
 {
     if (str.empty()) { return 0; }
@@ -32,14 +48,14 @@ auto stoi(const std::string& str) -> int32_t
     return found_digit ? (negative ? -result : result) : 0;
 }
     
-auto MPU6050::parse(const std::string& message) noexcept -> std::tuple<AccData, GyroData>
+auto parse(const std::string& message) noexcept -> std::tuple<AccData, GyroData>
 {
     std::vector<int32_t> values;
     std::string token;
     std::istringstream iss(message);
     while(std::getline(iss, token, ' '))
     {
-        const auto value = ::common::hal::stoi(token);
+        const auto value = ::common::hal::MPU6050::stoi(token);
         values.push_back(value);
     }
 
@@ -60,4 +76,4 @@ auto MPU6050::parse(const std::string& message) noexcept -> std::tuple<AccData, 
 
     return {accData, gyroData};
 }
-} // namespace common::hal
+} // namespace common::hal::MPU6050

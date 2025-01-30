@@ -91,7 +91,7 @@ auto SerialHandler::Wrapper_Write(int32_t fd, const char* buffer, size_t size) -
 #endif
 
 auto DetailSerial::open(const std::string& port,
-                        const Baudrate::type baudrate,
+                        const Baudrate baudrate,
                         const uint8_t mode) noexcept -> bool
 {
 #if defined(WINDOWS)
@@ -121,7 +121,7 @@ auto DetailSerial::open(const std::string& port,
     }
 
     int32_t CBRBaudrate = 0;
-    switch (baudrate)
+    switch (baudrate._value)
     {
         case Baudrate::_9600: CBRBaudrate = CBR_9600; break;
         case Baudrate::_14400: CBRBaudrate = CBR_14400; break;

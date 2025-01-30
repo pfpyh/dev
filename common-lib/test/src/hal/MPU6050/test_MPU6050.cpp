@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "hal/MPU6050/MPU6050.hpp"
+#include "hal/imu/MPU6050.hpp"
 
 namespace common::hal::test
 {

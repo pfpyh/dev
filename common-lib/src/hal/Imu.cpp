@@ -1,5 +1,5 @@
 #include "hal/Imu.hpp"
-#include "hal/MPU6050/MPU6050.hpp"
+#include "hal/imu/MPU6050.hpp"
 
 #include "common/logging/Logger.hpp"
 #include "math/constant.hpp"

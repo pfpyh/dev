@@ -49,7 +49,7 @@ class MainWindow(QMainWindow):
         
     def connect_imu(self, port, baudrate, mode):
         if self._imu.initialize(port, baudrate, mode):
-            self._imu.subscribe_update_imuData(self.__imu_data_callback)
+            self._imu.subscribe(self.__imu_data_callback)
         
     def __imu_data_callback(self, direction):
         print(f"IMU direction: {direction}")
@@ -57,5 +57,5 @@ class MainWindow(QMainWindow):
 app = QApplication(sys.argv)
 window = MainWindow()
 window.show()
-window.connect_imu("COM3", 38400, 0)
+window.connect_imu("COM5", 38400, 1)
 app.exec_()

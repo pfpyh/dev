@@ -1,5 +1,5 @@
 #include "hal/Gnss.hpp"
-#include "hal/uBlox/NeoM6.hpp"
+#include "hal/gnss/NeoM6.hpp"
 
 namespace common::hal
 {

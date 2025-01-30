@@ -33,6 +33,71 @@ public :
         _128000,
         _256000,
     };
+
+    type _value = _9600;
+
+public :
+    Baudrate() = default;
+    Baudrate(const type value) : _value(value) {};
+    Baudrate(const uint32_t value)
+    {
+        switch(value)
+        {
+            case 9600:
+                _value = _9600;
+                break;
+            case 14400:
+                _value = _14400;
+                break;
+            case 19200:
+                _value = _19200;
+                break;
+            case 38400:
+                _value = _38400;
+                break;
+            case 57600:
+                _value = _57600;
+                break;
+            case 115200:
+                _value = _115200;
+                break;
+            case 128000:
+                _value = _128000;
+                break;
+            case 256000:
+                _value = _256000;
+                break;
+            default:
+                _value = _9600;
+                break;
+        }
+    }
+
+    auto operator=(const type value) -> Baudrate
+    {
+        return Baudrate(value);
+    }
+
+    auto operator=(const uint32_t value) -> Baudrate
+    {
+        return Baudrate(value);
+    }
+
+    auto uint32_t() const
+    {
+        switch(_value)
+        {
+            case _9600 : return 9600;
+            case _14400 : return 14400;
+            case _19200 : return 19200;
+            case _38400 : return 38400;
+            case _57600 : return 57600;
+            case _115200 : return 115200;
+            case _128000 : return 128000;
+            case _256000 : return 256000;
+            default : return 0;
+        }
+    }
 };
 
 class COMMON_LIB_API Serial : public NonCopyable
@@ -45,7 +110,7 @@ public :
 
 public :
     virtual auto open(const std::string& port,
-                      const Baudrate::type baudrate,
+                      const Baudrate baudrate,
                       const uint8_t mode) noexcept -> bool = 0;
     virtual auto close() noexcept -> void = 0;
     virtual auto is_open() noexcept -> bool = 0;
@@ -123,7 +188,7 @@ public :
 
 public :
     auto open(const std::string& port,
-              const Baudrate::type baudRate,
+              const Baudrate baudRate,
               const uint8_t mode) noexcept -> bool override;
     auto close() noexcept -> void override;
     inline auto is_open() noexcept -> bool override { return _isOpen; }
