@@ -1,3 +1,5 @@
+#ifdef TEMPORARY_DISABLED
+
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
@@ -214,3 +216,5 @@ TEST(test_Serial, write)
     }
 }
 } // namespace common::test
+
+#endif

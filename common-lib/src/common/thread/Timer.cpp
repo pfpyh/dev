@@ -1,6 +1,6 @@
 #include "common/thread/Timer.hpp"
 #include "common/thread/Thread.hpp"
-#include "common/exception/Exception.hpp"
+#include "common/Exception.hpp"
 #include "common/Singleton.hpp"
 
 #include "common/logging/Logger.hpp"
@@ -36,7 +36,7 @@ public :
 public :
     auto start() -> std::future<void> override
     {
-        if(_running) throw exception::AlreadyRunningException(); 
+        if(_running) throw AlreadyRunningException(); 
         _running = true;
 
         _thread = Thread::create();

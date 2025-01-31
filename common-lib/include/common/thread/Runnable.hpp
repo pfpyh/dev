@@ -2,7 +2,7 @@
 
 #include "CommonHeader.hpp"
 #include "common/thread/Thread.hpp"
-#include "common/exception/Exception.hpp"
+#include "common/Exception.hpp"
 #include "common/NonCopyable.hpp"
 
 namespace common
@@ -32,7 +32,7 @@ public :
      */
     auto run() -> std::future<void>
     {
-        if(_running) throw exception::AlreadyRunningException();
+        if(_running) throw AlreadyRunningException(); 
         _running = true;
 
         auto t = Thread::create();
@@ -108,7 +108,7 @@ public :
      */
     auto run() -> std::future<void>
     {
-        if(_running) throw exception::AlreadyRunningException();
+        if(_running) throw AlreadyRunningException();
         _running = true;
 
         auto t = Thread::create();

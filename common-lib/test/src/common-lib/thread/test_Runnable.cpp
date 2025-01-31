@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <thread>
+#include <iostream>
 
 #include "common/thread/Runnable.hpp"
 
@@ -58,8 +59,14 @@ TEST(test_Runnable, already_running)
 
     // when
     auto future = runnable.run();
-    try { runnable.run(); }
-    catch(const exception::AlreadyRunningException& e) { exceptionRised = true; }
+    try 
+    { 
+        runnable.run(); 
+    }
+    catch(const AlreadyRunningException& e) 
+    { 
+        exceptionRised = true; 
+    }
     runnable.stop();
     future.wait();
 
@@ -158,8 +165,14 @@ TEST(test_ActiveRunnable, already_running)
 
     // when
     auto future = runnable.run();
-    try { runnable.run(); }
-    catch(const exception::AlreadyRunningException& e) { exceptionRised = true; }
+    try 
+    { 
+        runnable.run(); 
+    }
+    catch(const AlreadyRunningException& e) 
+    {
+        exceptionRised = true;
+    }
     for(auto i : dataList) { runnable.notify(i); }
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
     runnable.stop();

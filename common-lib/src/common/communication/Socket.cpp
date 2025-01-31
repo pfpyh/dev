@@ -1,5 +1,5 @@
 #include "common/communication/Socket.hpp"
-#include "common/exception/Exception.hpp"
+#include "common/Exception.hpp"
 
 #include <string>
 
@@ -48,7 +48,7 @@ public :
         WSADATA wsaData;
         if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) 
         {
-            throw exception::SocketErrorException();
+            throw CommunicationException();
         }
     #endif
 
@@ -59,7 +59,7 @@ public :
             std::string what("Socket error:");
             what += strerror(errNo);
             close();
-            throw exception::SocketErrorException();
+            throw CommunicationException();
         }
     }
 
@@ -82,7 +82,7 @@ public :
             const int32_t errNo = errno;
             std::string what("Socket error:");
             what += strerror(errNo);
-            throw exception::Exception(exception::SocketError, what);
+            throw CommunicationException(what);
         }
     #elif defined(LINUX)
         if((readSize = ::read(get_conn(), buffer, size)) < 0)
@@ -90,7 +90,7 @@ public :
             const int32_t errNo = errno;
             std::string what("Socket error:");
             what += strerror(errNo);
-            throw exception::Exception(exception::SocketError, what);
+            throw CommunicationException(what);
         }
     #endif
         return readSize;
@@ -137,7 +137,7 @@ public :
             const int32_t errNo = errno;
             std::string what("Socket error:");
             what += strerror(errNo);
-            throw exception::Exception(exception::SocketError, what);
+            throw CommunicationException(what);
         }
     #elif defined(LINUX)
         if(::send(get_conn(), buffer, size, 0) < 0)
@@ -145,7 +145,7 @@ public :
             const int32_t errNo = errno;
             std::string what("Socket error:");
             what += strerror(errNo);
-            throw exception::Exception(exception::SocketError, what);
+            throw CommunicationException(what);
         }
     #endif
     }    
@@ -177,7 +177,7 @@ public :
             std::string what("Socket setsockopt error: ");
             what += strerror(errNo);
             close();
-            throw exception::Exception(exception::SocketError, what); 
+            throw CommunicationException(what);
         }
     #endif
 
@@ -187,7 +187,7 @@ public :
             std::string what("Server bind error: ");
             what += strerror(errNo);
             close();
-            throw exception::Exception(exception::SocketServerError, what);
+            throw CommunicationException(what);
         }
 
     #if defined(WIN32)
@@ -200,7 +200,7 @@ public :
             std::string what("Server listen error: ");
             what += strerror(errNo);
             close();
-            throw exception::Exception(exception::SocketServerError, what); 
+            throw CommunicationException(what);
         }
 
     #if defined(WIN32)
@@ -215,7 +215,7 @@ public :
             std::string what("Server accept error: ");
             what += strerror(errNo);
             close();
-            throw exception::Exception(exception::SocketServerError, what);
+            throw CommunicationException(what);
         }
     }
 };
@@ -243,7 +243,7 @@ public :
             const int32_t errNo = errno;
             std::string what("Client inet_pton error:");
             what += strerror(errNo);
-            throw exception::Exception(exception::SocketClientError, what);
+            throw CommunicationException(what);
         }
     #endif
 
@@ -253,7 +253,7 @@ public :
             std::string what("Client connect error:");
             what += strerror(errNo);
             close();
-            throw exception::Exception(exception::SocketClientError, what);
+            throw CommunicationException(what);
         }
         else
         {
