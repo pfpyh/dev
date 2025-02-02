@@ -1,0 +1,7 @@
+{
+    "cmake.configureArgs": [
+        "-DGTEST_BASE_DIR=${GTEST_BASE_DIR}", // Delete if you don't use googletest
+        "-DPYTHON_BASE_DIR=${PYTHON_BASE_DIR}" // Delete if you don't need python test tools
+    ],
+    "python.envFile": "${workspaceFolder}/.env"
+}

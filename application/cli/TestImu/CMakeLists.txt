@@ -1,7 +1,7 @@
-set(TARGET_NAME TestGnss)
+set(TARGET_NAME TestImu)
 
 set(INCLUDES ${CMAKE_CURRENT_LIST_DIR}/include
-             ${CMAKE_CURRENT_LIST_DIR}/../../common-lib/include)
+             ${CMAKE_CURRENT_LIST_DIR}/../../../common-lib/include)
 set(DEPENDENCIES common-lib)
 set(LINKS ${CMAKE_CURRENT_BINARY_DIR}
           ${CMAKE_CURRENT_BINARY_DIR}/Debug)
