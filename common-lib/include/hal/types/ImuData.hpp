@@ -15,6 +15,4 @@ struct COMMON_LIB_API ImuRawData
 using GyroData = ImuRawData; /* unit = g */
 using AccData = ImuRawData; /* unit = deg/s */
 using ImuData = ImuRawData;
-
-class COMMON_LIB_API EventUpdateImuData : public Subject<ImuData> {};
 } // namespace common::hal

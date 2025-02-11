@@ -10,6 +10,8 @@
 
 namespace common::hal
 {
+class COMMON_LIB_API UpdatePositionEvent : public Subject<PositionData> {};
+
 class COMMON_LIB_API Gnss : public Runnable
                           , public Factory<Gnss>
 {
@@ -17,7 +19,7 @@ class COMMON_LIB_API Gnss : public Runnable
 
 private :
     std::shared_ptr<Serial> _serial;
-    EventUpdatePositionData _updatePosition;
+    UpdatePositionEvent _updatePositionEvent;
     PositionData _position;
 
 public :

@@ -8,12 +8,12 @@ Gnss::Gnss(std::shared_ptr<Serial> serial)
 
 auto Gnss::subscribe_update_position(std::shared_ptr<BaseObserver<PositionData>> observer) -> void
 {
-    _updatePosition.regist(std::move(observer));
+    _updatePositionEvent.regist(std::move(observer));
 }
 
 auto Gnss::unsubscribe_update_position(std::shared_ptr<BaseObserver<PositionData>> observer) -> void
 {
-    _updatePosition.unregist(std::move(observer));
+    _updatePositionEvent.unregist(std::move(observer));
 }
 
 auto Gnss::__work() -> void
@@ -22,7 +22,7 @@ auto Gnss::__work() -> void
     auto position = NeoM6::parse(msg);
     if(position._type & NeoM6::SupportType::GPGGA)
     {
-        _updatePosition.notify(position);
+        _updatePositionEvent.notify(position);
     }
 }
 

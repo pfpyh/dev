@@ -33,6 +33,8 @@ public :
 };
 } // namespace detail
 
+class COMMON_LIB_API UpdateImuEvent : public Subject<ImuData> {};
+
 class COMMON_LIB_API Imu : public Runnable
                          , public Factory<Imu>
 {
@@ -47,7 +49,7 @@ private :
 
     detail::YawCalculator _yawCal;
 
-    EventUpdateImuData _updateImuData;
+    UpdateImuEvent _updateImuEvent;
     ImuData _data;
 
 public :

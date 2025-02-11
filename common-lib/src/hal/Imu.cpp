@@ -11,12 +11,12 @@ Imu::Imu(std::shared_ptr<Serial> serial)
 
 auto Imu::subscribe_update_imuData(std::shared_ptr<BaseObserver<ImuData>> observer) -> void
 {
-    _updateImuData.regist(std::move(observer));
+    _updateImuEvent.regist(std::move(observer));
 }
 
 auto Imu::unsubscribe_update_imuData(std::shared_ptr<BaseObserver<ImuData>> observer) -> void
 {
-    _updateImuData.unregist(std::move(observer));
+    _updateImuEvent.unregist(std::move(observer));
 }
 
 auto Imu::__work() -> void
@@ -56,7 +56,7 @@ auto Imu::__work() -> void
 
     _data._z = _yawCal.calculate(gyr._z, acc._x, acc._y, dt);
 
-    _updateImuData.notify(_data);
+    _updateImuEvent.notify(_data);
 }
 
 auto Imu::__create(std::shared_ptr<Serial> serial) -> std::shared_ptr<Imu>
