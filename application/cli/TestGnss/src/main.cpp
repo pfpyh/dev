@@ -1,6 +1,6 @@
 #include "common/communication/Serial.hpp"
 #include "common/logging/Logger.hpp"
-#include "hal/Gnss.hpp"
+#include "hal/gnss/Gnss.hpp"
 
 #include "GnssReceiver.hpp"
 

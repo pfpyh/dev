@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common/Observer.hpp"
-#include "hal/Gnss.hpp"
+#include "hal/gnss/Gnss.hpp"
 
 class GnssReceiver : public common::Observer<GnssReceiver, common::hal::PositionData>
 {

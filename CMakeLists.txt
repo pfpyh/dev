@@ -7,6 +7,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
+set(INCLUDES ${CMAKE_CURRENT_LIST_DIR}/common-lib/include)
+set(DEPENDENCIES common-lib)
 set(LINKS ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
 if (WIN32)
@@ -34,4 +36,5 @@ if(DEFINED GTEST_BASE_DIR)
 endif()
 
 add_subdirectory(common-lib)
+# add_subdirectory(engine-lib)
 add_subdirectory(application)

@@ -1,7 +1,7 @@
 #include "common/communication/Serial.hpp"
 #include "common/logging/Logger.hpp"
 
-#include "hal/Imu.hpp"
+#include "hal/imu/Imu.hpp"
 #include "hal/imu/MPU6050.hpp"
 
 class ImuReceiver : public ::common::hal::MPU6050::DefaultObserver
