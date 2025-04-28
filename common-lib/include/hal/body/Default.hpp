@@ -3,7 +3,7 @@
 #include "CommonHeader.hpp"
 #include "common/Observer.hpp"
 
-namespace common::hal::default
+namespace common::hal
 {
 class DefaultObserver : public Observer<DefaultObserver, double>
 {
@@ -16,4 +16,4 @@ private :
 public :
     virtual auto onSpeedUpdate(const double speed) -> void = 0;
 };
-} // namespace common::hal::default
+} // namespace common::hal
