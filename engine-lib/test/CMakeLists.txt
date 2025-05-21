@@ -4,24 +4,16 @@ project(${TARGET_NAME})
 file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp)
 
 set(INCLUDES ${INCLUDES}
-             ${CMAKE_CURRENT_LIST_DIR}/include
-             ${GTEST_BASE_DIR}/googletest/include
-             ${GTEST_BASE_DIR}/googlemock/include)
+             ${TEST_INCLUDES}
+             ${CMAKE_CURRENT_LIST_DIR}/include)
 
-if (WIN32)
-    set(LINKS ${LINKS}
-              ${GTEST_BASE_DIR}/build/lib/Debug
-              ${GTEST_BASE_DIR}/build/lib/Release)
-elseif (UNIX)
-    set(LINKS ${LINKS}
-              ${GTEST_BASE_DIR}/build/lib/)
-endif()
+set(LINKS ${LINKS}
+          ${TEST_LINKS})
 
 set(DEPENDENCIES ${DEPENDENCIES}
+                 ${TEST_DEPENDENCIES}
                  common-lib
-                 engine-lib
-                 gtest
-                 gmock)
+                 engine-lib)
 
 add_executable(${TARGET_NAME} ${SOURCES})
 add_test(NAME ${TARGET_NAME}

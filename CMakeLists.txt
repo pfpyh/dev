@@ -11,6 +11,11 @@ set(INCLUDES ${CMAKE_CURRENT_LIST_DIR}/common-lib/include)
 set(DEPENDENCIES common-lib)
 set(LINKS ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 
+set(TEST_INCLUDES ${CMAKE_CURRENT_LIST_DIR}/engine-lib/libs/googletest/include
+                  ${CMAKE_CURRENT_LIST_DIR}/engine-lib/libs/googlemock/include)
+set(TEST_DEPENDENCIES gtest gmock)
+set(TEST_LINKS ${LINKS})
+
 if (WIN32)
     add_definitions(-DWINDOWS)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDebug")
@@ -28,11 +33,6 @@ if (WIN32)
     endif()
 elseif (UNIX)
     add_definitions(-DLINUX)
-endif()
-
-if(DEFINED GTEST_BASE_DIR)
-    message("GTEST_BASE_DIR = ${GTEST_BASE_DIR}")
-    set(GTEST_ENABLED ON)
 endif()
 
 add_subdirectory(common-lib)

@@ -21,7 +21,5 @@ target_link_libraries(${TARGET_NAME}
 target_link_directories(${TARGET_NAME}
                         PRIVATE ${LINKS})
 
-if(GTEST_ENABLED)
-    add_subdirectory(test)
-endif()
+add_subdirectory(test)
                     
